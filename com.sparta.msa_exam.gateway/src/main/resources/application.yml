@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: users-service
+          uri: lb://users-service
+          predicates:
+            - Path=/users/**
+        - id: orders-service
+          uri: lb://orders-service
+          predicates:
+            - Path=/orders/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:19090/eureka/
