@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,11 +17,13 @@ public class ProductService {
     @Value("${server.port}")
     private String serverPort;
 
+    @Transactional(readOnly = true)
     public List<ProductResponseDto> getProducts(HttpServletResponse response) {
         setServerPortHeader(response);
         return productRepository.findAllProducts();
     }
 
+    @Transactional
     public void createProduct(ProductRequestDto requestDto, HttpServletResponse response) {
         Product product = Product.createProduct(requestDto);
         productRepository.save(product);
