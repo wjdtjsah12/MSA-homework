@@ -2,9 +2,10 @@ package com.sparta.msa_exam.product;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,9 +16,9 @@ public class ProductService {
     @Value("${server.port}")
     private String serverPort;
 
-    public String getProduct(ProductRequestDto requestDto, HttpServletResponse response) {
+    public List<ProductResponseDto> getProducts(HttpServletResponse response) {
         setServerPortHeader(response);
-        return "Product Info, sp :" + serverPort;
+        return productRepository.findAllProducts();
     }
 
     public void createProduct(ProductRequestDto requestDto, HttpServletResponse response) {
