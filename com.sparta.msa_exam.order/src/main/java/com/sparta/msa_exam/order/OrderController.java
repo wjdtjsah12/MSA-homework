@@ -1,5 +1,7 @@
-package com.sparta.msa_exam.order.service;
+package com.sparta.msa_exam.order;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +15,8 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/{orderId}")
-    public String getOrder(@PathVariable String orderId) {
-        return orderService.getOrder(orderId);
+    @GetMapping("")
+    public String getOrder(HttpServletResponse response) {
+        return orderService.getOrder(response);
     }
 }
