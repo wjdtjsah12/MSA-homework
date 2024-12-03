@@ -1,12 +1,12 @@
 package com.sparta.msa_exam.order;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.sparta.msa_exam.order.dto.OrderRequestDto;
+import com.sparta.msa_exam.order.dto.OrderResponseDto;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,8 +15,13 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("")
-    public String getOrder(HttpServletResponse response) {
-        return orderService.getOrder(response);
+    @GetMapping
+    public List<OrderResponseDto> getOrders(HttpServletResponse response) {
+        return orderService.getOrders(response);
+    }
+
+    @PostMapping
+    public void createOrder(OrderRequestDto requestDto, HttpServletResponse response) {
+        orderService.createOrder(requestDto, response);
     }
 }
